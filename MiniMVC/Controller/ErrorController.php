@@ -13,6 +13,11 @@ use MiniMVC\View\View;
 
 class ErrorController
 {
+    public function indexAction()
+    {
+        return new View();
+    }
+
     public function _404Action()
     {
         header("HTTP/1.0 404 Not Found");

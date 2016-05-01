@@ -9,6 +9,8 @@
 
 namespace MiniMVC\Router;
 
+use MiniMVC\Http\Request;
+
 class Router
 {
     /**
@@ -27,7 +29,7 @@ class Router
     function __construct()
     {
         $this->routes = require DOC_ROOT.'/App/routes.php';
-        $this->request = parse_url($_SERVER['REQUEST_URI']);
+        $this->request = new Request();
     }
 
     /**
@@ -42,11 +44,9 @@ class Router
             if ($_SERVER['REQUEST_METHOD'] == $route['method'])
             {
                 $routeSegs = explode('/', trim($route['path'], '/'));
-                $requestSegs = explode('/', trim($this->request['path'], '/'));
-                if ($routeSegs[0] == $requestSegs[0])
+                if ($routeSegs[0] == $this->request->segments[0])
                 {
-                    // Match found
-                    // Check for dynamic action
+                    // Match found, check for dynamic action
                     if ($route['action'] == '?')
                     {
                         // Look for the action keyword in the route
@@ -54,16 +54,18 @@ class Router
                         {
                             if ($routeSeg == '($action)')
                             {
-                                if (isset($requestSegs[$index]))
+                                if (isset($this->request->segments[$index]))
                                 {
-                                    $route['action'] = $requestSegs[$index];
+                                    $route['action'] = $this->request->segments[$index];
                                 }
                                 else
                                 {
                                     $route['action'] = $route['default-action'];
                                 }
                                 break;
-                            } elseif ($routeSeg === end($routeSegs)) {
+                            }
+                            elseif ($routeSeg === end($routeSegs))
+                            {
                                 throw new \Exception('No action specified');
                             }
                         }
@@ -71,13 +73,12 @@ class Router
                     // Check for any extra segments in the request, or any missing segments.
                     // If there are missing segments, check they are not required
                     $totalRouteSegs = count($routeSegs);
-                    $totalRequestSegs = count($requestSegs);
-                    if ($totalRouteSegs != $totalRequestSegs)
+                    if ($totalRouteSegs != $this->request->totalSegments)
                     {
-                        $diff = $totalRouteSegs - $totalRequestSegs;
+                        $diff = $totalRouteSegs - $this->request->totalSegments;
                         // If there are more request segments than the route allows, skip
                         if ($diff < 0) continue;
-                        // Check if the extra segment(s) are required path vars, loop thru extra segments
+                        // Check if the extra segment(s) are required path vars, loop through extra segments
                         $skip = false;
                         for ($i = $totalRouteSegs - 1; $i >= $totalRouteSegs - $diff; $i--)
                         {
@@ -88,7 +89,6 @@ class Router
                                 break;
                             }
                         }
-                        // A path var is required and not present
                         if ($skip) continue;
                     }
                     // Set any path vars to $_GET
@@ -96,7 +96,21 @@ class Router
                     {
                         foreach ($route['path-vars'] as $index => $value)
                         {
-                            $_GET[$index] = (isset($requestSegs[$value])) ? $requestSegs[$value] : null;
+                            if (isset($this->request->segments[$value]))
+                            {
+                                if (!isset($_GET[$index]))
+                                {
+                                    $_GET[$index] = $this->request->segments[$value];
+                                }
+                                else
+                                {
+                                    throw new \Exception('the var was passed');
+                                }
+                            }
+                            else
+                            {
+                                throw new \Exception('poo');
+                            }
                         }
                     }
                     $routeMatch = $this->load($route);

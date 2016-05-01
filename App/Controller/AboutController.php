@@ -16,6 +16,7 @@ class AboutController
 
     public function frogsAction()
     {
+        var_dump($_GET);
         $frogs = 'frogs';
         return new View(array(
             'frogs' => $frogs,

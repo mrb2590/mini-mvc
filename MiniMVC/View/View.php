@@ -60,7 +60,7 @@ class View
     }
 
     /**
-     * Include the view into the layout by parsing the controller name to build the view's path
+     * Include the view in the layout
      */
     public function content()
     {
