@@ -1,0 +1,14 @@
+{
+    "name": "mini-mvc/skeleton-app",
+    "description": "Skeleton Application for MiniMVC",
+    "homepage": "http://mini-mvc.mikebuonomo.com/",
+    "autoload": {
+        "psr-4": {
+            "MiniMVC\\": "MiniMVC/",
+            "App\\": "App/"
+        }
+    },
+    "require": {
+        "php": ">=5.4"
+    }
+}
