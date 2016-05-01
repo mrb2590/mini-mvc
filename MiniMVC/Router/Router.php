@@ -99,7 +99,6 @@ class Router
                             $_GET[$index] = (isset($requestSegs[$value])) ? $requestSegs[$value] : null;
                         }
                     }
-                    // Assign each path var to $_GET
                     $routeMatch = $this->load($route);
                     break;
                 }
@@ -107,8 +106,11 @@ class Router
         }
         if (!$routeMatch)
         {
-            // TODO: build an error controller or something
-            echo '404';
+            $this->load(array(
+                'controller' => 'MiniMVC\Controller\ErrorController',
+                'action'     => '_404',
+                'layout'     => 'layout/layout'
+            ));
         }
     }
 
@@ -119,7 +121,7 @@ class Router
      * @param Array $route  The found route configuration
      * @return Bool  True if the controller action exists, false otherwise
      */
-    private function load($route)
+    public function load($route)
     {
         $controller = new $route['controller']();
         $action = $route['action'].'Action';

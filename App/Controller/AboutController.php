@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use MiniMVC\Controller\Controller;
 use MiniMVC\View\View;
 
-class AboutController extends Controller
+class AboutController
 {
     public function indexAction()
     {

@@ -11,8 +11,8 @@ namespace MiniMVC\Controller;
 
 class Controller
 {
-    /**
-     * @var 
-     */
-    protected $test;
+    public function indexAction()
+    {
+
+    }
 }

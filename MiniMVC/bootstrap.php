@@ -29,5 +29,16 @@ require DOC_ROOT . '/vendor/autoload.php';
 /**
  * Call upon our dear router the to guide our request
  */
-$router = new MiniMVC\Router\Router();
-$router->resolveRoute();
+try
+{
+    $router = new MiniMVC\Router\Router();
+    $router->resolveRoute();
+}
+catch (Exception $e)
+{
+    $router->load(array(
+        'controller' => 'MiniMVC\Controller\ErrorController',
+        'action'     => 'index',
+        'layout'     => 'layout/layout'
+    ));
+}

@@ -38,12 +38,14 @@ return array(
         'method'     => 'GET',
         'controller' => 'App\Controller\HomeController',
         'action'     => 'index',
+        'layout'     => 'layout/layout',
     ),
     'about/frogs' => array(
         'path'           => '/about/frogs/$/$/',
         'method'         => 'GET',
         'controller'     => 'App\Controller\AboutController',
         'action'         => 'frogs',
+        'layout'         => 'layout/layout',
         'path-vars'      => array(
             'frog_id'    => 2,
             'frog_color' => 3,
@@ -55,5 +57,6 @@ return array(
         'controller'     => 'App\Controller\AboutController',
         'action'         => '?',
         'default-action' => 'index',
+        'layout'         => 'layout/layout',
     ),
 );

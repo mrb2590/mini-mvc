@@ -1,0 +1,17 @@
+html, body {
+    height: 100%;
+}
+
+/* THEME */
+._404-text {
+    font-size: 8em;
+    text-shadow: 3px 3px 10px;
+}
+
+/* Helper */
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
