@@ -6,6 +6,10 @@ html, body {
 ._404-text {
     font-size: 8em;
     text-shadow: 3px 3px 10px;
+    text-align: center;
+}
+._404-text small {
+    font-size: 50%;
 }
 
 /* Helper */

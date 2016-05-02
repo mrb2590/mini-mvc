@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use MiniMVC\Controller\Controller;
 use MiniMVC\View\View;
 
-class AboutController
+class AboutController extends Controller
 {
     public function indexAction()
     {
@@ -16,8 +17,7 @@ class AboutController
 
     public function frogsAction()
     {
-        var_dump($_GET);
-        $frogs = 'frogs';
+        $frogs = var_export($this->paramVars, true);
         return new View(array(
             'frogs' => $frogs,
         ));

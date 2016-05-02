@@ -8,7 +8,7 @@
  */
 
 /**
- * Turn on error reporting if in a development environment
+ * Turn on error reporting the app is in a development environment
  */
 if ($_SERVER['APP_ENV'] == 'development')
 {
@@ -27,18 +27,27 @@ define("DOC_ROOT", realpath(__DIR__.'/../'));
 require DOC_ROOT . '/vendor/autoload.php';
 
 /**
- * Call upon our dear router the to guide our request
+ * The Router will compare the request URI with the paths in the
+ * routes configuration file. If a match is found the Router will return
+ * route object containing the information about which controller to load
+ * and action to call. The Route is then passed to the Loader. The Loader 
+ * will then instantiate the corresponding controller then call the
+ * corresponding action. The controller's action will return a View object,
+ * and the view object's render function is then called.
+ *
+ * If any exceptions are thrown, they are caught here. The route configuration
+ * for errors is directly accessed and loaded.
  */
 try
 {
-    $router = new MiniMVC\Router\Router();
-    $router->resolveRoute();
+    $request = new MiniMVC\Http\Request();
+    $router = new MiniMVC\Router\Router($request);
+    $route = $router->resolveRoute();
+    MiniMVC\Loader\Loader::load($route);
 }
 catch (Exception $e)
 {
-    $router->load(array(
-        'controller' => 'MiniMVC\Controller\ErrorController',
-        'action'     => 'index',
-        'layout'     => 'layout/layout'
-    ));
+    $errorPathConfig = require 'routes.php';
+    $route = new MiniMvc\Router\Route($errorPathConfig['errorIndex'], $request);
+    MiniMVC\Loader\Loader::load($route, array('exception' => $e));
 }

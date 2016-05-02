@@ -9,6 +9,8 @@
 
 namespace MiniMVC\View;
 
+use MiniMVC\Router\Route;
+
 class View
 {
     /**
@@ -17,19 +19,9 @@ class View
     public $vars;
 
     /**
-     * @var Array $route  The matching route configuration with resolved dynamic action
+     * @var MiniMVC\Router\Route $route  The matching route configuration with resolved dynamic action
      */
     private $route;
-
-    /**
-     * @var String $controller  The controller which called the View
-     */
-    private $controller;
-
-    /**
-     * @var String $action  The controller's action
-     */
-    private $action;
 
     /**
      * Constructor
@@ -42,28 +34,19 @@ class View
     /**
      * Render the view.
      * 
-     * @var Array $route  The matching route configuration with resolved dynamic action
+     * @var MiniMVC\Router\Route $route  The matching route configuration with resolved dynamic action
      */
-    public function render($route)
+    public function render(Route $route)
     {
         $this->route = $route;
-        $parts = explode('\\', $this->route['controller']);
-        $controller = array_pop($parts);
-        $this->controller = strtolower(str_replace('Controller', '', $controller));
-        $this->action = $this->route['action'];
-        // Check if an underscore is used for an action that starts with digits (404Action)
-        if (strpos($this->action, '_') === 0)
-        {
-            $this->action = ltrim($this->route['action'], '_');
-        }
-        require DOC_ROOT.'/view/'.$route['layout'].'.phtml';
+        require DOC_ROOT.'/view/'.$this->route->layout.'.phtml';
     }
 
     /**
-     * Include the view in the layout
+     * Include the action's view in the layout
      */
     public function content()
     {
-        require DOC_ROOT.'/view/'.$this->controller.'/'.$this->action.'.phtml';
+        require DOC_ROOT.'/view/'.strtolower($this->route->controller).'/'.ltrim($this->route->action, '_').'.phtml';
     }
 }
