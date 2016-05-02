@@ -9,17 +9,15 @@ class AboutController extends Controller
 {
     public function indexAction()
     {
-        $test = 'test';
-        return new View(array(
-            'test' => $test,
-        ));
+        return new View();
     }
 
-    public function frogsAction()
+    public function varsAction()
     {
-        $frogs = var_export($this->paramVars, true);
         return new View(array(
-            'frogs' => $frogs,
+            'getVars' => $this->getVars,
+            'postVars' => $this->postVars,
+            'paramVars' => $this->paramVars,
         ));
     }
 }

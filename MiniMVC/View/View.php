@@ -21,7 +21,7 @@ class View
     /**
      * @var MiniMVC\Router\Route $route  The matching route configuration with resolved dynamic action
      */
-    private $route;
+    public $route;
 
     /**
      * Constructor

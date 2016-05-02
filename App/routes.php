@@ -41,14 +41,14 @@ return array(
         'layout'     => 'layout/layout',
     ),
     'about/frogs' => array(
-        'path'           => '/about/frogs/$/$/',
+        'path'           => '/about/vars/$/$/',
         'method'         => 'GET',
         'controller'     => 'App\Controller\AboutController',
-        'action'         => 'frogs',
+        'action'         => 'vars',
         'layout'         => 'layout/layout',
         'path-vars'      => array(
-            'frog_id'    => 2,
-            'frog_color' => 3,
+            'var1' => 2,
+            'var2' => 3,
         ),
     ),
     'about' => array(

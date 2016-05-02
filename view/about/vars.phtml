@@ -1,0 +1,35 @@
+<div class="container">
+    <div class"row">
+        <div class="col-sm-12">
+            <div class="well">
+                <h1>About MiniMVC</h1>
+                <p>This is the <?php echo $this->route->controllerNamespace ?> and the <?php echo $this->route->action ?>Action</p>
+                <p>Pass variables through the URI like <a href="/about/vars/somekey/some_id/?id=12345">here</a></p>
+            </div>
+            <div class="well">
+                <h1>Get Variables</h1>
+                <p>
+                    <?php foreach ($this->vars['getVars'] as $name => $value): ?>
+                        <?php echo $name ?>: <?php echo $value ?>
+                    <?php endforeach ?>
+                </p>
+            </div>
+            <div class="well">
+                <h1>Post Variables</h1>
+                <p>
+                    <?php foreach ($this->vars['postVars'] as $name => $value): ?>
+                        <?php echo $name ?>: <?php echo $value ?>
+                    <?php endforeach ?>
+                </p>
+            </div>
+            <div class="well">
+                <h1>Param Variables</h1>
+                <p>
+                    <?php foreach ($this->vars['paramVars'] as $name => $value): ?>
+                        <?php echo $name ?>: <?php echo $value ?>
+                    <?php endforeach ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

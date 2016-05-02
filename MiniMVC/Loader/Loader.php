@@ -42,7 +42,7 @@ class Loader
         else
         {
             $errorPathConfig = require DOC_ROOT.'/MiniMVC/routes.php';
-            $route = new Route($errorPathConfig['error404']);
+            $route = new Route($errorPathConfig['error404'], $route->request);
             self::load($route);
         }
     }

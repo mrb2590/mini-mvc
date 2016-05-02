@@ -63,6 +63,6 @@ class Request
         $this->headers = getallheaders();
         $this->postVars = $_POST;
         $this->getVars = $_GET;
-        $this->paramVars = '';
+        $this->paramVars = array();
     }
 }
