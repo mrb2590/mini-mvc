@@ -22,14 +22,14 @@ class SQLTable
     public function __construct()
     {
         $dbCreds = require DOC_ROOT . '/mysqli.php';
-        $this->mysqli = new mysqli(
+        $this->mysqli = new \mysqli(
             $dbCreds['host'],
             $dbCreds['user'],
             $dbCreds['pass'],
             $dbCreds['db']
         );
         if ($this->mysqli->connect_errno > 0) {
-            throw new Exception('Unable to connect to database [' . $this->mysqli->connect_error . ']');
+            throw new \Exception('Unable to connect to database [' . $this->mysqli->connect_error . ']');
         }
     }
 }
