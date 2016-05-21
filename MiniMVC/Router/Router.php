@@ -84,7 +84,12 @@ class Router
                             }
                             else
                             {
-                                throw new \Exception('Path segment is missing, but should be there...');
+                                // Make sure segment is not required be cause it is missing but
+                                // not an extra segment as we checked above
+                                if (substr($route->segments[$value], 0, 1) != '(' && substr($route->segments[$value],-1, 1) != ')')
+                                {
+                                    throw new \Exception('Path segment is missing, but should be there...');
+                                }
                             }
                         }
                     }
