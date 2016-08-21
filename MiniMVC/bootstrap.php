@@ -17,6 +17,12 @@ if ($_SERVER['APP_ENV'] == 'development')
 }
 
 /**
+ * Start session
+ */
+session_name($_SERVER['SESSION_NAME']);
+session_start();
+
+/**
  * Define any global constants
  */
 define("DOC_ROOT", realpath(__DIR__.'/../'));
