@@ -19,6 +19,6 @@ This is a bare-bones MVC framework I built to mainly to learn, but also to use f
 You will need composer installed as this makes use of it's autoloader
 
 ```sh
-$ git pull https://github.com/mrb2590/mini-mvc.git
+$ git clone https://github.com/mrb2590/mini-mvc.git
 $ composer install
 ```
