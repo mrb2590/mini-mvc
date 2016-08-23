@@ -105,7 +105,7 @@ class Route
                 {
                     if (isset($request->segments[$index]))
                     {
-                        $this->action = $request->segments[$index];
+                        $this->action = $this->snakeToCamel($request->segments[$index]);
                     }
                     else
                     {
@@ -119,5 +119,14 @@ class Route
                 }
             }
         }
+    }
+
+    /**
+     * Converts snake_case to camelCase
+     */
+    public function snakeToCamel($str)
+    {
+        $func = create_function('$c', 'return strtoupper($c[1]);');
+        return preg_replace_callback('/_([a-z])/', $func, $str);
     }
 }
