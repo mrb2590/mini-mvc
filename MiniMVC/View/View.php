@@ -47,22 +47,6 @@ class View
      */
     public function content()
     {
-        // Convert camelcase to snakecase
-        $actionFile = $this->camelToSnake($this->route->action);
-        require DOC_ROOT.'/view/'.strtolower($this->route->controller).'/'.ltrim($actionFile, '_').'.phtml';
-    }
-
-    /**
-     * Converts camelCase to snake_case
-     */
-    public function camelToSnake($string)
-    {
-        return strtolower(
-            preg_replace(
-                ["/([A-Z]+)/", "/_([A-Z]+)([A-Z][a-z])/"], 
-                ["_$1", "_$1_$2"], 
-                lcfirst($string)
-            )
-        );
+        require DOC_ROOT.'/view/'.strtolower($this->route->controller).'/'.ltrim($this->route->action, '_').'.phtml';
     }
 }
